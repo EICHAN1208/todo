@@ -20,21 +20,22 @@ RSpec.describe 'TaskFinder' do
     end
   end
 
-  describe '#done' do
-    # subject { task_finder.done }
+  # describe '#done' do
+  #   subject { task_finder.done(id) }
 
-    # context 'doneした場合' do
-    #   before do
-    #     Task.add(nil, 'タスクタスク')
-    #     task = Task.new(nil, nil, nil, nil)
-    #     task.done(tasks.last[0])
-    #   end
+  #   context 'doneした場合' do
+  #     let(:id) { tasks.last[0] }
+  #     before do
+  #       Task.add(nil, 'タスクタスク')
+  #       task = Task.new(nil, nil, nil, nil)
+  #       task.done(tasks.last[0])
+  #     end
 
-    #   it 'doneしたタスクが選択される' do
-        
-    #   end
-    # end
-  end
+  #     it 'doneしたタスクが選択される' do
+  #       expect(tasks.last).to eq 1
+  #     end
+  #   end
+  # end
 
   describe '#all' do
     context '' do
