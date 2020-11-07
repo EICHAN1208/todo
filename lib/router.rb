@@ -13,7 +13,7 @@ class Router
 
   def route
     task_finder = TaskFinder.new
-    case @argv_0
+    case argv_0
     when '--help'
       puts Renderer.render_help_option
     when 'add'
@@ -21,7 +21,7 @@ class Router
       task_finder = TaskFinder.new
       puts task_finder.add
     when 'done'
-      task = Task.new('', '', '', '')
+      task = Task.new(nil, nil, nil, nil)
       task.done(argv_1)
       task_finder = TaskFinder.new
       puts task_finder.done(argv_1)

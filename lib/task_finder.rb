@@ -10,27 +10,36 @@ class TaskFinder
   end
 
   def add
-    tasks = @tasks.last
-    @renderer.render([tasks])
+    renderer.render([tasks.last])
   end
 
   def done(id)
-    tasks = @tasks.select { |task| task[0] == id }
-    @renderer.render(tasks)
+    done_task = tasks.select { |task| task[0] == id }
+    renderer.render(done_task)
   end
 
   def all
-    tasks = @tasks.select { |task| task[2].nil? }
-    @renderer.render(tasks)
+    all_tasks = tasks.select { |task| completed_at_nil?(task) }
+    renderer.render(all_tasks)
   end
 
   def today
-    tasks = @tasks.select { |task| task[1] == Date.today.strftime }
-    @renderer.render(tasks)
+    today_tasks = tasks.select { |task| today?(task) }
+    renderer.render(today_tasks)
   end
 
   def archived
-    tasks = @tasks.reject { |task| task[2].nil? }
-    @renderer.render(tasks)
+    archived_tasks = tasks.reject { |task| completed_at_nil?(task) }
+    renderer.render(archived_tasks)
+  end
+
+  private
+
+  def today?(task)
+    task[1] == Date.today.strftime
+  end
+
+  def completed_at_nil?(task)
+    task[2].nil?
   end
 end

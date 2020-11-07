@@ -5,7 +5,6 @@ RSpec.describe 'Task' do
   let(:tasks) { Storage.new.read }
 
   describe '#self.add' do
-
     context '日付を指定する場合' do
       it '日付を指定してタスクが1件追加される' do
         Task.add('11/4', 'タスク')

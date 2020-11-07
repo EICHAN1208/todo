@@ -16,14 +16,15 @@ class Task
 
   def self.add(due_date, title)
     due_date = Date.parse(due_date).strftime unless due_date.nil?
-    Storage.write(new(SecureRandom.hex(3), due_date, nil, title))
+    storage = Storage.new
+    storage.write(new(SecureRandom.hex(3), due_date, nil, title))
   end
 
   def done(id)
     storage = Storage.new
     tasks = storage.read
     tk = tasks.map do |task|
-      task[2] = Date.today.strftime if task[0] == id
+      task[2] = create_today if task[0] == id
       task
     end
 
@@ -35,6 +36,12 @@ class Task
       task.title = a[3]
       task
     end
-    storage.write(t)
+    storage.renew(t)
+  end
+
+  private
+
+  def create_today
+    Date.today.strftime
   end
 end

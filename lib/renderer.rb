@@ -11,11 +11,18 @@ class Renderer
   end
 
   def render(tasks)
-    return 'no tasks' if tasks.size.zero?
+    return 'no tasks' if empty?(tasks)
+
     text = format('%-15s%-15s%-20s%-15s', 'id', 'due_date', 'completed_at', 'title')
     tasks.each do |task|
       text += "\n" + format('%-15s%-15s%-20s%-15s', task[0], task[1], task[2], task[3])
     end
     text
+  end
+
+  private
+
+  def empty?(tasks)
+    tasks.size.zero?
   end
 end
