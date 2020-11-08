@@ -9,7 +9,7 @@ class Storage
     end
   end
 
-  def renew(tasks) # doneしたときは全てを更新する
+  def renew(tasks)
     CSV.open('./tmp/tasks.csv', 'w') do |file|
       tasks.each do |task|
         file << create_task_elements(task)
