@@ -1,5 +1,5 @@
 class Renderer
-  def self.render_help_option
+  def render_help_option
     <<~TEXT
       Options:\n-h, --help output usage information\n
       Commands:\nadd [task title [-d|--due=(YYYY/)MM/DD]

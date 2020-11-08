@@ -7,7 +7,7 @@ RSpec.describe 'Task' do
   describe '#self.add' do
     context '日付を指定する場合' do
       it '日付を指定してタスクが1件追加される' do
-        Task.add('11/4', 'タスク')
+        Task.add('タスク', '-d', '11/4')
         expect(tasks.last[1]).to eq('2020-11-04')
         expect(tasks.last[3]).to eq('タスク')
       end
@@ -15,7 +15,7 @@ RSpec.describe 'Task' do
 
     context '日付を指定しない場合' do
       it '日付なしのタスクが1件追加される' do
-        Task.add(nil, 'タスク')
+        Task.add('タスク', nil, nil)
         expect(tasks.last[1]).to eq(nil)
         expect(tasks.last[3]).to eq('タスク')
       end
@@ -34,7 +34,7 @@ RSpec.describe 'Task' do
 
     context '存在するidを指定した場合' do
       before do
-        Task.add(nil, 'タスク')
+        Task.add('タスク', nil, nil)
       end
 
       it '完了日に今日の日付が入る' do

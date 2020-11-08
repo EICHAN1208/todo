@@ -2,28 +2,22 @@ require './lib/task'
 require './lib/renderer'
 
 class Router
-  attr_reader :argv_0, :argv_1, :argv_2, :argv_3
+  attr_reader :renderer, :task
 
-  def initialize(argv_0, argv_1, argv_2, argv_3)
-    @argv_0 = argv_0
-    @argv_1 = argv_1
-    @argv_2 = argv_2
-    @argv_3 = argv_3
+  def initialize
+    @renderer = Renderer.new
+    @task = Task.new(nil, nil, nil, nil)
   end
 
-  def route
-    task_finder = TaskFinder.new
+  def route(argv_0, argv_1, argv_2, argv_3)
     case argv_0
     when '--help'
-      puts Renderer.render_help_option
+      puts renderer.render_help_option
     when 'add'
-      Task.add(argv_3, argv_1)
-      task_finder = TaskFinder.new
+      Task.add(argv_1, argv_2, argv_3)
       puts task_finder.add
     when 'done'
-      task = Task.new(nil, nil, nil, nil)
       task.done(argv_1)
-      task_finder = TaskFinder.new
       puts task_finder.done(argv_1)
     when 'all'
       puts task_finder.all
@@ -32,5 +26,11 @@ class Router
     when 'archived'
       puts task_finder.archived
     end
+  end
+
+  private
+
+  def task_finder
+    TaskFinder.new
   end
 end

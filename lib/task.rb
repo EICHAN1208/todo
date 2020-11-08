@@ -14,8 +14,11 @@ class Task
     @title = title
   end
 
-  def self.add(due_date, title)
-    due_date = Date.parse(due_date).strftime unless due_date.nil?
+  def self.add(title, option, due_date)
+    if option == '-d' || option == '--due'
+      due_date = Date.parse(due_date).strftime
+    end
+
     storage = Storage.new
     storage.write(new(SecureRandom.hex(3), due_date, nil, title))
   end

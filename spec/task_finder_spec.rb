@@ -11,7 +11,7 @@ RSpec.describe 'TaskFinder' do
 
     context 'addした場合' do
       before do
-        Task.add(nil, 'タスク')
+        Task.add('タスク', nil, nil)
       end
 
       it 'addしたタスクが選択される' do
@@ -27,7 +27,7 @@ RSpec.describe 'TaskFinder' do
       let(:id) { tasks.last[0] }
 
       before do
-        Task.add(nil, 'タスクタスク')
+        Task.add('タスク', nil, nil)
         task = Task.new(nil, nil, nil, nil)
         task.done(tasks.last[0])
       end
@@ -53,7 +53,7 @@ RSpec.describe 'TaskFinder' do
 
     context 'todayした場合' do
       before do
-        Task.add(today_date, 'タスクタスク')
+        Task.add('タスク', '-d', today_date)
       end
 
       it 'due_dateが今日の日付になっているタスク数と同じ数取得できる' do
