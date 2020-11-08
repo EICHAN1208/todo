@@ -4,9 +4,9 @@ require './lib/renderer'
 class TaskFinder
   attr_accessor :tasks, :renderer
 
-  def initialize
+  def initialize(renderer)
     @tasks = Storage.new.read
-    @renderer = Renderer.new
+    @renderer = renderer
   end
 
   def add

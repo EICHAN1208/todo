@@ -29,15 +29,15 @@ class Task
       task
     end
 
-    t = renew_tasks.map do |a|
+    _tasks = renew_tasks.map do |renew_task|
       task = Task.new(nil, nil, nil, nil)
-      task.id = a[0]
-      task.due_date = a[1]
-      task.completed_at = a[2]
-      task.title = a[3]
+      task.id = renew_task[0]
+      task.due_date = renew_task[1]
+      task.completed_at = renew_task[2]
+      task.title = renew_task[3]
       task
     end
-    storage.renew(t)
+    storage.renew(_tasks)
   end
 
   private

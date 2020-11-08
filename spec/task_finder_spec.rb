@@ -3,8 +3,9 @@ require './lib/task'
 require 'date'
 
 RSpec.describe 'TaskFinder' do
-  let(:task_finder) { TaskFinder.new }
+  let(:task_finder) { TaskFinder.new(renderer) }
   let(:tasks) { Storage.new.read }
+  let(:renderer) { Renderer.new }
 
   describe '#add' do
     subject { task_finder.add }
