@@ -5,14 +5,14 @@ class Storage
 
   def write(task)
     CSV.open('./tmp/tasks.csv', 'a') do |file|
-      file << each_task_item(task)
+      file << create_task_elements(task)
     end
   end
 
-  def renew(tasks)
+  def renew(tasks) # doneしたときは全てを更新する
     CSV.open('./tmp/tasks.csv', 'w') do |file|
       tasks.each do |task|
-        file << each_task_item(task)
+        file << create_task_elements(task)
       end
     end
   end
@@ -23,7 +23,7 @@ class Storage
 
   private
 
-  def each_task_item(task)
+  def create_task_elements(task)
     [task.id, task.due_date, task.completed_at, task.title]
   end
 end

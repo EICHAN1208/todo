@@ -15,23 +15,21 @@ class Task
   end
 
   def self.add(title, option, due_date)
-    if option == '-d' || option == '--due'
-      due_date = Date.parse(due_date).strftime
-    end
+    return if title.nil?
 
-    storage = Storage.new
-    storage.write(new(SecureRandom.hex(3), due_date, nil, title))
+    due_date = Date.parse(due_date).strftime if ['-d', '--due'].include?(option)
+    Storage.new.write(new(SecureRandom.hex(3), due_date, nil, title))
   end
 
   def done(id)
     storage = Storage.new
     tasks = storage.read
-    tk = tasks.map do |task|
+    renew_tasks = tasks.map do |task|
       task[2] = create_today if task[0] == id
       task
     end
 
-    t = tk.map do |a|
+    t = renew_tasks.map do |a|
       task = Task.new(nil, nil, nil, nil)
       task.id = a[0]
       task.due_date = a[1]

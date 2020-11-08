@@ -6,8 +6,14 @@ RSpec.describe 'Task' do
 
   describe '#self.add' do
     context '日付を指定する場合' do
-      it '日付を指定してタスクが1件追加される' do
+      # let(:tasks) { Storage.new.read }
+
+      before do
         Task.add('タスク', '-d', '11/4')
+      end
+
+      it '日付を指定してタスクが1件追加される' do
+        tasks = Storage.new.read
         expect(tasks.last[1]).to eq('2020-11-04')
         expect(tasks.last[3]).to eq('タスク')
       end

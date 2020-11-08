@@ -10,27 +10,27 @@ class TaskFinder
   end
 
   def add
-    renderer.render([tasks.last])
+    render([tasks.last])
   end
 
   def done(id)
     done_task = tasks.select { |task| task[0] == id }
-    renderer.render(done_task)
+    render(done_task)
   end
 
   def all
     all_tasks = tasks.select { |task| completed_at_nil?(task) }
-    renderer.render(all_tasks)
+    render(all_tasks)
   end
 
   def today
     today_tasks = tasks.select { |task| today?(task) }
-    renderer.render(today_tasks)
+    render(today_tasks)
   end
 
   def archived
     archived_tasks = tasks.reject { |task| completed_at_nil?(task) }
-    renderer.render(archived_tasks)
+    render(archived_tasks)
   end
 
   private
@@ -41,5 +41,9 @@ class TaskFinder
 
   def completed_at_nil?(task)
     task[2].nil?
+  end
+
+  def render(tasks)
+    renderer.render(tasks)
   end
 end
