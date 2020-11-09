@@ -7,6 +7,21 @@ require './lib/task_finder'
 class Task
   attr_accessor :id, :due_date, :completed_at, :title
 
+  class << self
+    def add(title, option, due_date)
+      return if title.nil?
+
+      Storage.new.write(new(SecureRandom.hex(3), create_due_date(option, due_date), nil, title))
+    end
+
+    private
+
+    def create_due_date(option, due_date)
+      Date.parse(due_date).strftime if ['-d', '--due'].include?(option)
+    end
+  end
+
+
   def initialize(id, due_date, completed_at, title)
     @id = id
     @due_date = due_date
@@ -14,12 +29,6 @@ class Task
     @title = title
   end
 
-  def self.add(title, option, due_date)
-    return if title.nil?
-
-    due_date = Date.parse(due_date).strftime if ['-d', '--due'].include?(option)
-    Storage.new.write(new(SecureRandom.hex(3), due_date, nil, title))
-  end
 
   def done(id)
     storage = Storage.new
